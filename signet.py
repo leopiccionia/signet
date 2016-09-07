@@ -49,7 +49,7 @@ def pack(input_path, output_path):
 			for name in get_files(input_path):
 				tar.add(name)
 		tar_file = open('signet.tar.gz', 'r')
-		aes = AES.new(master_key, AES.MODE_CTR, counter=lambda: 'sealed0123456789')
+		aes = AES.new(master_key, AES.MODE_CTR, counter = lambda: 'sealed0123456789')
 		cipher = aes.encrypt(tar_file.read())
 		pass #TODO
 
