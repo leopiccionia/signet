@@ -63,17 +63,20 @@ def unpack(input_path, output_path):
 	else:
 		pass #TODO
 
-# Treating input
+# Handling input from console
 
-input_path = sys.argv[2] if len(sys.argv) > 2 else os.path.expanduser('~')
-output_path = sys.argv[3] if len(sys.argv) > 3 else os.path.expanduser('~')
-
-if len(sys.argv) > 1:
-	if sys.argv[1] == '-p' or sys.argv[1] == '--pack':
-		pack(input_path, output_path)
-	elif sys.argv[1] == '-u' or sys.argv[1] == '--unpack':
-		unpack(input_path, output_path)
+def main(args = sys.argv[1:]):
+	input_path = args[1] if len(args) > 1 else os.path.expanduser('~')
+	output_path = args[2] if len(args) > 2 else os.path.expanduser('~')
+	if len(args) > 0:
+		if args[0] == '-p' or args[0] == '--pack':
+			pack(input_path, output_path)
+		elif args[0] == '-u' or args[0] == '--unpack':
+			unpack(input_path, output_path)
+		else:
+			sys.stderr.write('Invalid first argument. Should be: -p, --pack, -u, --unpack.\n')
 	else:
-		sys.stderr.write('Invalid first argument. Should be: -p, --pack, -u, --unpack.\n')
-else:
-	sys.stderr.write('Invalid number of arguments.\n')
+		sys.stderr.write('Invalid number of arguments.\n')
+
+if __name__ == '__main__':
+	main()
